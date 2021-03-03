@@ -173,8 +173,10 @@ x = repmat(cos(ts),[9,1]);
 y = repmat(sin(ts),[9,1]);
 figure;
 subplot(2,2,1);
-plot(LAP_iso.Y'.*x',LAP_iso.Y'.*y');
+plot(LAP_ani.Y'.*x',LAP_ani.Y'.*y');
+title('anisotropic')
 axis equal;
 subplot(2,2,2);
-plot(LAP_ani.Y'.*x',LAP_ani.Y'.*y');
+plot(LAP_iso.Y'.*x',LAP_iso.Y'.*y');
 axis equal;
+title('isotropic')
