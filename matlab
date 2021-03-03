@@ -26,9 +26,9 @@ x.t_xp1_ym1     =  0.7;
 x.t_xm1_yp1     =  0.8;
 x.t_xm1_ym1     =  0.9;
 
-% model parameters - delta = 0 models wave equation
+% model parameters - delta = 0 (wave equation)
 %--------------------------------------------------------------------------
-P.del           = 0;    
+P.del           = 0; 
 
 % observation function (phi - to generate timeseries)
 %--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ M(2).V          = exp(26);      % precision of exogenous causes
 
 % create isotropic data with known parameters (P)
 %==========================================================================
-DEM_iso         	= spm_DEM_generate(M,U,P);
+DEM_iso     	= spm_DEM_generate(M,U,P);
 
 % change delta to non-zero value for anisotropic case
 %--------------------------------------------------------------------------
@@ -89,18 +89,18 @@ M(1).pE         = P;
 
 % create anisotropic data with known parameters (P)
 %==========================================================================
-DEM_aniso         	= spm_DEM_generate(M,U,P);
+DEM_aniso    	= spm_DEM_generate(M,U,P);
 
 % Now try to recover model parameters from data features
 %==========================================================================
 
 % initialization of priors over parameters
 %--------------------------------------------------------------------------
-DEM_aniso.M(1).pE.del  = 0;     % set prior parameter delta to zero
+DEM_aniso.M(1).pE.del   = 0;        % set prior parameter delta to zero
 
-pC.del   = 1/64;                % prior variance 
-DEM_iso.M(1).pC   = diag(spm_vec(pC));
-DEM_aniso.M(1).pC   = diag(spm_vec(pC));
+pC.del                  = 1/64;                 % prior variance 
+DEM_iso.M(1).pC         = diag(spm_vec(pC));
+DEM_aniso.M(1).pC       = diag(spm_vec(pC));
 
 % Inversion using generalised filtering 
 %==========================================================================
@@ -124,24 +124,23 @@ qC    = LAP_iso.qP.C;
 pE    = LAP_iso.M(1).pE;
 pC    = LAP_iso.M(1).pC;
 for m = 1:numel(PC)
-    rC     = diag(spm_vec(PC{m}));
-    F_iso(m) = spm_log_evidence(qE,qC,pE,pC,pE,rC);
+    rC          = diag(spm_vec(PC{m}));
+    F_iso(m)    = spm_log_evidence(qE,qC,pE,pC,pE,rC);
 end
 
-qE    = LAP_ani.qP.P{1};            % anisotropic case
+qE    = LAP_ani.qP.P{1};                % anisotropic case
 qC    = LAP_ani.qP.C;
 pE    = LAP_ani.M(1).pE;
 pC    = LAP_ani.M(1).pC;
 for m = 1:numel(PC)
-    rC     = diag(spm_vec(PC{m}));
-    F_aniso(m) = spm_log_evidence(qE,qC,pE,pC,pE,rC);
+    rC          = diag(spm_vec(PC{m}));
+    F_aniso(m)  = spm_log_evidence(qE,qC,pE,pC,pE,rC);
 end
 
 % report marginal log likelihood or evidence
 %--------------------------------------------------------------------------
-F_iso = F_iso - min(F_iso);         % isotropic case
-F_aniso = F_aniso - min(F_aniso);	% anisotropic case
-
+F_iso   = F_iso - min(F_iso);           % isotropic case
+F_aniso = F_aniso - min(F_aniso);       % anisotropic case
 
 % plot result of Bayesian model reduction
 %--------------------------------------------------------------------------
