@@ -7,6 +7,8 @@ disp('generating isotropic data, ~1 min...')
 N                       = 512;  	% number of time points
 
 % model states, phi (x.p), and theta (x.t)
+% N.B. some or all of these values can be changed in order to see how the
+% inference is affected by initial conditions. 
 %--------------------------------------------------------------------------
 x.p                     =  1+1/256;	% initialise phi at different values
 x.p_xp1                 =  1+1/128;
@@ -78,6 +80,9 @@ M(1).x                  = x;      	% initial states
 M(1).f                  = f;     	% equations of motion
 M(1).g                  = g;        % observation mapping
 M(1).pE                 = P;       	% model parameters
+
+% N.B. the values below can be changed to see how the inference depends
+% upon observation noise.
 M(1).V                  = exp(16); 	% precision of observation noise
 M(1).W                  = exp(16);	% precision of state noise
 
