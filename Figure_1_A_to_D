@@ -212,3 +212,16 @@ title('D')
 subplot(3,2,6)
 bar(p_ani)
 title('D_prob')
+
+% in order to test the ways in which initial conditions affect the simulation, these can be altered by e.g. multiplying the values below by factors and re-running, 
+e.g., changing all rates of change by a factor of fact = 0.96;
+
+% x.t                     =  (1+1)*fact;   	
+% x.t_xp1                 =  (1+1/2)*fact;
+% x.t_xm1                 =  (1+1/4)*fact;
+% x.t_yp1                 =  (1+1/8)*fact;
+% x.t_ym1                 =  (1+1/16)*fact;
+% x.t_xp1_yp1             =  (1+1/32)*fact;
+% x.t_xp1_ym1             =  (1+1/64)*fact;
+% x.t_xm1_yp1             =  (1+1/128)*fact;
+% x.t_xm1_ym1             =  (1+1/256)*fact;
